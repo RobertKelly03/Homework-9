@@ -1,44 +1,61 @@
-// TODO: Include packages needed for this application
+const inquirer = require('inquirer');
+const fs = require('fs');
+const genereateMarkdown = require('./utils/generateMarkdown.js');
+const { type } = require('os');
+console.log("Welcome to my README generator")
+console.log("Answer the following questions to generate a high quality README for your project")
 
-// TODO: Create an array of questions for user input
-//const questions = [];
+const questions = []
+    {
+        type: 'input',
+        name: 'title',
+        message: 'What is the title of the project?',
+        validate: your_Input +> {
+            if (your_Input) {
+                return true;
+            } else {
+                console.log('Enter a title to continue!');
+                return false;
+            }
 
-// TODO: Create a function to write README file
-//function writeToFile(fileName, data) {}
+        }
 
-// TODO: Create a function to initialize app
-//function init() {}
+    },
 
-// Function call to initialize app
-//init();
-const generateReadme = require("./utils/generateReadme")
-const writeFileAsync = util.promisify(fs.writeFile);
-
-//Prompt the user for Github username and project details
-//Prompt the user questions to populate the README.md
-function promptUser(){
-    return inquirer.prompt([
-        {
-            type: "input",
-            name: "tests",
-            message: "Is there a test included?"
-        },
-        {
-            type: "input" ,])
-    
-} 
-
-// Function async Inititing 
-// Async function using util.promisify 
-  async function init() {
-    try {
-        // Ask user questions and generate responses
-        const answers = await promptUser();
-        const generateContent = generateReadme(answers);
-        // Write new README.md to dist directory
-        await writeFileAsync('./dist/README.md', generateContent);
-        console.log('✔️  Successfully wrote to README.md');
-    }   catch(err) {
-        console.log(err);
+    {
+        type: 'checkbox',
+        name: 'licence',
+        message: 'Choose a license that will best suit your project.',
+        choices: ['MPL 2.0', 'GNU', 'Apache ', 'MIT', 'None of the above'],
+        validate: your_licence => {
+            if (your_licence) {
+                return true;
+            } else {
+                console.log('Select a licence for the project.');
+                return false;
+            }
+        }
     }
-  }
+
+    {
+        type: 'input',
+        name: 'contribution'
+    }
+
+
+
+
+
+
+
+
+
+    function writeToFile(fileName, data) {
+        fs.writeFile(fileName, data, (err) => {
+            if (err) {
+                return console.log(err);
+
+            }
+            console.log("success ")
+        })
+    }
