@@ -1,33 +1,26 @@
-const inquirer = require("inquirer");
-const fs = require('fs');
+// Declaring the dependencies and variables
+const fs = require("fs");
 const util = require("util");
+const inquirer = require("inquirer");
+const generateReadme = require("./generateMarkdown")
+const writeFileAsync = util.promisify(fs.writeFile);
 
-const generateMarkdown = require('./util/generateMarkdown');
+//Prompt the user questions to populate the README.md
 
 
 
-const questions = [{
-    type: "input",
-    message: "What is the title of the project?",
-    name: "Title"
-}, {
-    type: "input",
-    message: "What is the title of the project?",
-    name: "Title"
-}, {
-    type: "input",
-    message: "What is the title of the project?",
-    name: "Title"
-},  {
-    type: "input",
-    message: "What is the title of the project?",
-    name: "Title"
-},  {
-    type: "input",
-    message: "What is the title of the project?",
-    name: "Title"
-},  {
-    type: "input",
-    message: "What is the title of the project?",
-    name: "Title"
-}]
+// Async function using util.promisify 
+  async function init() {
+    try {
+        // Ask user questions and generate responses
+        const answers = await promptUser();
+        const generateContent = generateReadme(answers);
+        // Write new README.md to dist directory
+        await writeFileAsync('./dist/README.md', generateContent);
+        console.log('✔️  Successfully wrote to README.md');
+    }   catch(err) {
+        console.log(err);
+    }
+  }
+  
+  init();  
