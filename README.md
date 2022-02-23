@@ -4,3 +4,4 @@ Homework 9s goal was to create a Readme generator using the processes of Node.js
 
 https://user-images.githubusercontent.com/55413812/155257771-b4ade514-717b-477f-ae43-72e81e717f62.mp4
 
+<img width="1305" alt="Screen Shot 2022-02-22 at 7 41 24 PM" src="https://user-images.githubusercontent.com/55413812/155258171-0cfc18d1-862c-4eb3-b5e7-911b74bcb8fa.png">
