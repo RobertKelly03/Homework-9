@@ -2,11 +2,11 @@
 const fs = require("fs");
 const util = require("util");
 const inquirer = require("inquirer");
-const generateReadme = require("./generateMarkdown.js")
-const writeFileAsync = util.promisify(fs.writeFile);
+const generateReadme = require("./generateMarkdown.js");
+const generateMarkdown = require("./generateMarkdown.js");
 
 //Prompt the user questions to populate the README.md
-function promptUser(){
+function promptUser() {
     return inquirer.prompt([
         {
             type: "input",
@@ -67,21 +67,13 @@ function promptUser(){
             name: "email",
             message: "Please enter your email: "
         }
-    ]);
-} 
+    ]).then((promise) => {
+        console.table(promise)
+        fs.writeFile("README.md", generateMarkdown(promise), (err) => {
+            if(err) throw err
+        })
+    })
+}
 
-// Async function using util.promisify 
-  async function init() {
-    try {
-        // Ask user questions and generate responses
-        const answers = await promptUser();
-        const generateContent = generateReadme(answers);
-        // Write new README.md to dist directory
-        await writeFileAsync('README.md', generateContent);
-        console.log('✔️  Successfully wrote to README.md');
-    }   catch(err) {
-        console.log(err);
-    }
-  }
-  
-  init();  
+
+promptUser()  
